@@ -1,0 +1,11 @@
+import { API_URL, API_TOKEN, API_KEY } from "@env"
+
+
+export default {
+    API_URL: API_URL,
+    // STORAGE_URL: 'http://192.168.1.108:8000',
+    CURRENT_STACK: 'CURRENT_STACK',
+    ACCESS_TOKEN: 'ACCESS_TOKEN',
+    CURRENT_USER: 'CURRENT_USER',
+    API_KEY:API_KEY
+};
