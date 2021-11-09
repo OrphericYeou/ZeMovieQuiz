@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, StatusBar, Alert, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { Text, StyleSheet, View, StatusBar, Alert, TouchableOpacity, ActivityIndicator, Image } from 'react-native'
 import Button from '../Utils/Button'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -25,7 +25,7 @@ class StartGameScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            films:[]
+            films:null
         }
     }
 
@@ -42,11 +42,13 @@ class StartGameScreen extends Component {
         }
     }
 
-    componentDidMount(nextProps){
+    async componentDidMount(nextProps){
         const currentProps = this.props;
         if(!currentProps.films && nextProps.films){
             currentProps.getFilms();
         }
+
+        this.getData()
     }
 
     async getData(){
@@ -67,6 +69,7 @@ class StartGameScreen extends Component {
                             let film = {
                                 id: response.items[i].id,
                                 title: response.items[i].title,
+                                image: response.items[i].poster_path,
                                 name: res.cast[0].name
                             }
                             films.push(film)
@@ -91,24 +94,37 @@ class StartGameScreen extends Component {
             timerDuration,
             startTimer,
             restartTimer,
-            films
         } = this.props
-        console.log(films)
+        console.log(this.state.films)
 
         if(!this.state.films){
-            <ActivityIndicator size="large" color="#00ff00" />
+            return(
+                <ActivityIndicator style={{flex:1}} size={80} color="gray" />
+            )
         }
 
         return (
             <View style={styles.container}>
                 <StatusBar barStyle={"light-content"} />
                 <View style={styles.upper}>
+                    <Text style={{fontSize:35, color:"#fff"}}>Temps Restant</Text>
                     <Text style={styles.time}>
                         {formatTime(timerDuration - elapsedTime)}
                     </Text>
-                    <Text>{films}</Text>
+                   {/*  {this.state.films.map((film, index)=>( */}
+                        <View>
+                            {/* <Text style={{ color: "#fff", fontWeight: "bold" }}> {film.id}</Text> */}
+                            <Image
+                                style={styles.tinyLogo}
+                                source={{ uri: `https://image.tmdb.org/t/p/w500${this.state.films[0].image}` }}
+                            />
+                        </View>
+                    {/* ))} */}
+                    <Text style={styles.time}>
+                        {formatTime(timerDuration - elapsedTime)}
+                    </Text>
                 </View>
-
+                
                 <View style={styles.lower}>
                     {!isPlaying && (<Button
                         iconName="play-circle"
@@ -130,6 +146,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#000',
+        paddingTop:150
     },
 
     upper: {
@@ -146,9 +163,13 @@ const styles = StyleSheet.create({
 
     time: {
         color: "#fff",
-        fontSize: 120,
+        fontSize: 40,
         fontWeight: "100"
-    }
+    },
+    tinyLogo: {
+        width:200,
+        height: 350,
+    },
 });
 
 

@@ -44,7 +44,7 @@ function applyAddSecond(state) {
 }
 
 
-/* async function applyGetFilm(state) {
+async function applyGetFilm(state) {
     let films =[]
     await API.getListFilm().then(async response => {
         if (response.success) {
@@ -52,7 +52,7 @@ function applyAddSecond(state) {
         }
         else {
             //console.log(response.items)
-            for(let i= 0; i <response.items.length; i++ ){
+            for(let i= 0; i < response.items.length; i++ ){
                 //console.log(i)
                 await API.getMovieDetails(response.items[i].id).then(async res => {
                     if (res.success) {
@@ -72,12 +72,12 @@ function applyAddSecond(state) {
 
         }
     })
-    //console.log(films)
+    console.log(films)
     return {
         ...state,
         films:films,
     }
-} */
+}
 
 
 
@@ -92,8 +92,8 @@ function reducer(state = initialState, action) {
         case ADD_SECOND:
             return applyAddSecond(state);
 
-       /*  case ADD_FILMS:
-            return applyGetFilm(state); */
+        case ADD_FILMS:
+            return applyGetFilm(state); 
 
         default:
             return state;

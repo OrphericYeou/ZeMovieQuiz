@@ -31,4 +31,4 @@ const actionCreators = {
     getFilms
 }
 
-export {actionCreators}
+export { actionCreators }

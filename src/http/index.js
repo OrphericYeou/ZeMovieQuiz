@@ -17,23 +17,3 @@ export const getMovieDetails = (id) => {
 };
 
 
-export const saveAccount = (id) => {
-  return request({
-    url: `stores/${id}/accounts`,
-    method: 'POST',
-  });
-}
-
-export const getAccount = (store_id) => {
-  return request({
-    url: `stores/${store_id}/accounts`,
-    method: 'GET'
-  });
-}
-
-export const deleteAccount = (store_id) => {
-  return request({
-    url: `stores/${store_id}/accounts`,
-    method: 'DELETE'
-  });
-}
